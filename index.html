@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solve Acess — SamoraFit</title>
+
+    <!-- Pure CSS3 Stylesheets -->
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- ─── Sidebar ──────────────────────────────────────────────────────── -->
+      <aside id="sidebar">
+        <!-- Logo -->
+        <div class="sidebar-logo">
+          <div class="logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6.5 6.5 11 11"/>
+              <path d="m21 21-1-1a2 2 0 0 0-2.83 0l-2.17 2.17a2 2 0 0 1-2.83 0L10 20"/>
+              <path d="m3 3 1 1a2 2 0 0 0 2.83 0l2.17-2.17a2 2 0 0 1 2.83 0L14 4"/>
+              <path d="m18 22 4-4"/>
+              <path d="m2 6 4-4"/>
+              <path d="m3 10 7-7"/>
+              <path d="m14 21 7-7"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <p class="logo-title">Solve Acess</p>
+            <p class="logo-subtitle">SamoraFit</p>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-nav">
+          <!-- Principal -->
+          <div class="nav-group">
+            <p class="nav-group-label">Principal</p>
+            <ul class="nav-item-list">
+              <li>
+                <a href="#/" class="nav-item active" data-route="dashboard">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="7" height="9" x="3" y="3" rx="1"/>
+                      <rect width="7" height="5" x="14" y="3" rx="1"/>
+                      <rect width="7" height="9" x="14" y="12" rx="1"/>
+                      <rect width="7" height="5" x="3" y="16" rx="1"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Dashboard</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Dashboard</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Gestão -->
+          <div class="nav-group">
+            <p class="nav-group-label">Gestão</p>
+            <ul class="nav-item-list">
+              <li>
+                <a href="#/clientes" class="nav-item" data-route="clientes">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Clientes</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Clientes</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/planos" class="nav-item" data-route="planos">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+                      <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                      <path d="M10 9H8"/>
+                      <path d="M16 13H8"/>
+                      <path d="M16 17H8"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Planos</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Planos</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/pagamentos" class="nav-item" data-route="pagamentos">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="14" x="2" y="5" rx="2"/>
+                      <line x1="2" x2="22" y1="10" y2="10"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Pagamentos</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Pagamentos</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/faturacao" class="nav-item" data-route="faturacao">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
+                      <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
+                      <path d="M12 17V7"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Faturação</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Faturação</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Operações -->
+          <div class="nav-group">
+            <p class="nav-group-label">Operações</p>
+            <ul class="nav-item-list">
+              <li>
+                <a href="#/presencas" class="nav-item" data-route="presencas">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 2v4"/>
+                      <path d="M16 2v4"/>
+                      <rect width="18" height="18" x="3" y="4" rx="2"/>
+                      <path d="M3 10h18"/>
+                      <path d="m9 16 2 2 4-4"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Presenças</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Presenças</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/terminais" class="nav-item" data-route="terminais">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="16" height="16" x="4" y="4" rx="2"/>
+                      <rect width="6" height="6" x="9" y="9" rx="1"/>
+                      <path d="M15 2v2"/>
+                      <path d="M15 20v2"/>
+                      <path d="M2 15h2"/>
+                      <path d="M2 9h2"/>
+                      <path d="M20 15h2"/>
+                      <path d="M20 9h2"/>
+                      <path d="M9 2v2"/>
+                      <path d="M9 20v2"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Terminais</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Terminais de Acesso (ZKTeco)</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/congelamentos" class="nav-item" data-route="congelamentos">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="2" x2="22" y1="12" y2="12"/>
+                      <line x1="12" x2="12" y1="2" y2="22"/>
+                      <path d="m20 16-4-4 4-4"/>
+                      <path d="m4 8 4 4-4 4"/>
+                      <path d="m16 4-4 4-4-4"/>
+                      <path d="m8 20 4-4 4 4"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Congelamentos</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Congelamentos</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/pendencias" class="nav-item" data-route="pendencias">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                      <line x1="12" x2="12" y1="9" y2="13"/>
+                      <line x1="12" x2="12.01" y1="17" y2="17"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Pendências e Atrasos</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Pendências e Atrasos</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/desativados" class="nav-item" data-route="desativados">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <line x1="17" x2="22" y1="8" y2="13"/>
+                      <line x1="22" x2="17" y1="8" y2="13"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Clientes Desativados</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Clientes Desativados</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Análise -->
+          <div class="nav-group">
+            <p class="nav-group-label">Análise</p>
+            <ul class="nav-item-list">
+              <li>
+                <a href="#/relatorios" class="nav-item" data-route="relatorios">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" x2="18" y1="20" y2="10"/>
+                      <line x1="12" x2="12" y1="20" y2="4"/>
+                      <line x1="6" x2="6" y1="20" y2="14"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Relatórios</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Relatórios</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/auditoria" class="nav-item" data-route="auditoria">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Histórico e Auditoria</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Histórico e Auditoria</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sistema -->
+          <div class="nav-group">
+            <p class="nav-group-label">Sistema</p>
+            <ul class="nav-item-list">
+              <li>
+                <a href="#/integracoes" class="nav-item" data-route="integracoes">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22v-5"/>
+                      <path d="M9 8V2"/>
+                      <path d="M15 8V2"/>
+                      <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Integrações</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Integrações</div>
+                </a>
+              </li>
+              <li>
+                <a href="#/definicoes" class="nav-item" data-route="definicoes">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Definições</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Definições</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Sidebar Footer (Collapse button) -->
+        <div class="sidebar-footer">
+          <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" title="Recolher barra lateral">
+            <span class="toggle-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </span>
+            <span class="toggle-label">Recolher</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Mobile Overlay -->
+      <div id="sidebar-overlay"></div>
+
+      <!-- ─── Main Content Shell ────────────────────────────────────────────── -->
+      <div id="main-wrapper">
+        <!-- Header -->
+        <header id="app-header">
+          <!-- Mobile menu trigger -->
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+
+          <!-- Dynamic Title & Breadcrumbs Area -->
+          <div id="header-title-container" class="header-title-area">
+            <h1 class="header-page-title">Dashboard</h1>
+          </div>
+
+          <!-- Live Terminals Status Pill -->
+          <div class="header-terminals-indicator" style="margin-left: auto; margin-right: 8px; display: flex; align-items: center;">
+            <a href="#/terminais" class="badge" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; font-size: 12px; font-weight: 500; border-radius: var(--radius-full);" title="Ver estado dos terminais ZKTeco">
+              <span class="live-dot"></span>
+              <span>Terminais: <strong>1 / 2</strong> Online</span>
+            </a>
+          </div>
+
+          <!-- Search Expander -->
+          <div id="header-search" class="header-search-wrap collapsed">
+            <button id="search-toggle-btn" class="header-search-btn" title="Pesquisar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+              </svg>
+            </button>
+            <div class="header-search-input-box">
+              <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                </svg>
+              </span>
+              <input type="text" id="header-search-input" placeholder="Pesquisar clientes, pagamentos..." />
+            </div>
+          </div>
+
+          <!-- Notifications Button & Popover -->
+          <div class="header-notif-wrap">
+            <button id="notif-toggle-btn" class="header-notif-btn" title="Notificações">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+              </svg>
+              <span class="notif-badge-dot"></span>
+            </button>
+            <div id="notif-menu" class="header-notif-dropdown">
+              <div class="notif-dropdown-header">
+                <h3>Notificações</h3>
+                <span class="notif-mark-read" onclick="UI.showToast('Todas as notificações marcadas como lidas')">Marcar todas como lidas</span>
+              </div>
+              <div class="notif-dropdown-body">
+                <p>Sem notificações novas</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile & Dropdown -->
+          <div class="header-user-wrap">
+            <button id="user-toggle-btn" class="header-user-btn">
+              <div class="user-avatar-pill">A</div>
+              <div class="user-info-text">
+                <p class="user-info-name">Admin</p>
+                <p class="user-info-role">Administrador</p>
+              </div>
+              <svg class="user-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+            <div id="user-menu" class="user-dropdown-menu">
+              <button class="dropdown-item" onclick="UI.showToast('Perfil de utilizador')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Perfil
+              </button>
+              <a href="#/definicoes" class="dropdown-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                Definições
+              </a>
+              <button class="dropdown-item" onclick="UI.showToast('Central de ajuda')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                Ajuda
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" onclick="UI.showToast('Sessão terminada', 'error')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                Terminar sessão
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dynamic Main Page Content Target -->
+        <main id="page-content"></main>
+      </div>
+    </div>
+
+    <!-- ─── Floating Dialogs & Drawers ──────────────────────────────────────── -->
+
+    <!-- Global Modal Dialog -->
+    <div id="modal-container" class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title"></h2>
+            <p class="modal-subtitle"></p>
+          </div>
+          <button class="btn btn-icon-sm btn-ghost modal-close-btn" onclick="UI.closeModal()" aria-label="Fechar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18"/>
+              <path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+
+    <!-- Global Drawer Slide-over Panel -->
+    <div id="drawer-container" class="drawer-backdrop">
+      <div class="drawer">
+        <div class="drawer-header">
+          <div>
+            <h2 class="drawer-title"></h2>
+            <p class="drawer-subtitle"></p>
+          </div>
+          <button class="btn btn-icon-sm btn-ghost drawer-close-btn" onclick="UI.closeDrawer()" aria-label="Fechar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18"/>
+              <path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="drawer-body"></div>
+        <div class="drawer-footer"></div>
+      </div>
+    </div>
+
+    <!-- Toast Alerts Container -->
+    <div id="toast-container"></div>
+
+    <!-- ─── Vanilla JavaScript Scripts ────────────────────────────────────── -->
+    <script src="./js/icons.js"></script>
+    <script src="./js/components.js"></script>
+    <script src="./js/pages.js"></script>
+    <script src="./js/navigation.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

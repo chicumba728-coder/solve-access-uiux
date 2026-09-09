@@ -1,0 +1,653 @@
+/* ==========================================================================
+   Solve Acess — Page-Specific Styles
+   ========================================================================== */
+
+/* ─── Dashboard ─────────────────────────────────────────────────────────── */
+
+.stats-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+@media (min-width: 1200px) {
+  .stats-grid-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.stats-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.dashboard-cols-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-cols-2-1 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-placeholder {
+  min-height: 180px;
+  border: 1px dashed var(--border);
+  background-color: var(--muted);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.chart-placeholder-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.chart-placeholder-title {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.chart-placeholder-desc {
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+.status-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.status-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.status-bar-label-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.status-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--secondary-foreground);
+}
+
+.status-bar-track {
+  height: 6px;
+  background-color: var(--secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.status-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  width: 0%;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background-color: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.25;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.quick-action-btn:hover {
+  border-color: rgba(22, 163, 74, 0.4);
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.quick-action-icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.quick-action-btn:hover .quick-action-icon-circle {
+  background-color: #ffffff;
+}
+
+/* ─── Client Profile ─────────────────────────────────────────────────────── */
+
+.profile-banner-stripe {
+  height: 8px;
+  background: linear-gradient(to right, #16a34a, #4ade80);
+}
+
+.profile-header-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.profile-header-content {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.profile-identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-avatar-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.profile-status-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #94a3b8;
+  border: 2px solid #ffffff;
+}
+
+.profile-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .profile-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.profile-stat-box {
+  padding: 14px 20px;
+  border-right: 1px solid var(--border);
+}
+
+.profile-stat-box:last-child {
+  border-right: none;
+}
+
+.profile-stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+.profile-stat-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-top: 2px;
+}
+
+.profile-stat-sub {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ─── Attendance Calendar ────────────────────────────────────────────────── */
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cal-month-title {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.cal-nav-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cal-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+  padding-bottom: 8px;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-day-cell {
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--foreground);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+}
+
+.cal-day-cell:hover {
+  background-color: var(--primary-light);
+  border-color: rgba(22, 163, 74, 0.3);
+}
+
+.cal-day-cell.is-today {
+  background-color: #f0fdf4;
+  color: var(--primary);
+  font-weight: 600;
+  border-color: rgba(22, 163, 74, 0.4);
+}
+
+.cal-day-cell.is-disabled {
+  color: transparent;
+  pointer-events: none;
+  background: transparent;
+}
+
+.cal-day-sub {
+  font-size: 8px;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+.cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+
+.cal-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ─── Arrears Risk Cards ─────────────────────────────────────────────────── */
+
+.risk-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.risk-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border-left-width: 4px;
+}
+
+.risk-card-1m { border-left-color: #d97706; }
+.risk-card-2m { border-left-color: #ea580c; }
+.risk-card-3m { border-left-color: #dc2626; }
+.risk-card-6m { border-left-color: #b91c1c; }
+.risk-card-12m { border-left-color: #7f1d1d; }
+
+.alert-banner {
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.alert-banner-warning {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
+}
+
+.alert-banner-info {
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+/* ─── Reports & Settings Sidebar Layout ──────────────────────────────────── */
+
+.subpage-layout {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .subpage-layout {
+    flex-direction: column;
+  }
+}
+
+.subpage-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .subpage-sidebar {
+    width: 100%;
+  }
+}
+
+.subpage-nav-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.subpage-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  color: var(--muted-foreground);
+  background: none;
+}
+
+.subpage-nav-item:last-child {
+  border-bottom: none;
+}
+
+.subpage-nav-item:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.subpage-nav-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.subpage-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Timeline (Audit) ───────────────────────────────────────────────────── */
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 14px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-node {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.timeline-line {
+  width: 1px;
+  flex: 1;
+  background-color: var(--border);
+  margin-top: 4px;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-top: 3px;
+}
+
+.timeline-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.timeline-desc {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-top: 2px;
+}
+
+.timeline-time {
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+/* ─── Integration Cards ──────────────────────────────────────────────────── */
+
+.integration-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: box-shadow var(--transition-fast);
+}
+
+.integration-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.integration-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.integration-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.integration-logo-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.integration-details {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Terminais de Acesso (Catracas ZKTeco) ──────────────────────────────── */
+
+.terminals-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.terminal-active-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.terminal-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.terminal-icon-box.entrance {
+  background-color: #f0fdf4;
+  color: var(--primary);
+  border: 1px solid #bbf7d0;
+}
+
+.terminal-icon-box.exit {
+  background-color: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.live-feed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.live-feed-badge.in {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.live-feed-badge.out {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #ffedd5;
+}
+
+.tolerance-warning-box {
+  background-color: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 13px;
+  color: #991b1b;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+

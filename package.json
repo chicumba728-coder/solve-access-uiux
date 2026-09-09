@@ -1,0 +1,15 @@
+{
+  "name": "solve-acess",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sistema de Gestão Solve Acess — HTML5, CSS3 e JavaScript Puro",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.5"
+  }
+}

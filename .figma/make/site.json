@@ -1,0 +1,10 @@
+{
+  "description": "Manage client information, payment plans, and attendance seamlessly with a professional, visually sophisticated interface designed for fitness businesses.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Solve Acess — Design Tokens & CSS Variables
+   ========================================================================== */
+
+:root {
+  /* Colors - Base */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  /* Brand / Primary (Emerald Green) */
+  --primary: #16a34a;
+  --primary-hover: #15803d;
+  --primary-active: #166534;
+  --primary-foreground: #ffffff;
+  --primary-light: #f0fdf4;
+  --primary-muted: rgba(22, 163, 74, 0.15);
+  --primary-glow: rgba(22, 163, 74, 0.25);
+  --primary-text-active: #4ade80;
+
+  /* Secondary / Slate */
+  --secondary: #f1f5f9;
+  --secondary-hover: #e2e8f0;
+  --secondary-foreground: #475569;
+
+  /* Muted */
+  --muted: #f8fafc;
+  --muted-hover: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  /* Accent */
+  --accent: #dcfce7;
+  --accent-foreground: #15803d;
+
+  /* Borders */
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-hover: #cbd5e1;
+
+  /* Ring / Focus */
+  --ring: #16a34a;
+
+  /* Status Colors */
+  --status-paid: #16a34a;
+  --status-paid-bg: #dcfce7;
+  --status-paid-text: #15803d;
+
+  --status-pending: #d97706;
+  --status-pending-bg: #fef3c7;
+  --status-pending-text: #b45309;
+
+  --status-overdue: #dc2626;
+  --status-overdue-bg: #fee2e2;
+  --status-overdue-text: #dc2626;
+
+  --status-frozen: #0ea5e9;
+  --status-frozen-bg: #e0f2fe;
+  --status-frozen-text: #0369a1;
+
+  --status-inactive: #94a3b8;
+  --status-inactive-bg: #f1f5f9;
+  --status-inactive-text: #64748b;
+
+  /* Danger */
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --danger-foreground: #ffffff;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Border Radii */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Layout Dimensions */
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 64px;
+  --header-height: 56px;
+  --max-content-width: 1400px;
+
+  /* Sidebar Theme (Dark Slate) */
+  --sidebar-bg: #0f172a;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-item-hover: rgba(255, 255, 255, 0.05);
+  --sidebar-text: rgba(255, 255, 255, 0.6);
+  --sidebar-text-hover: rgba(255, 255, 255, 0.9);
+  --sidebar-heading: rgba(255, 255, 255, 0.3);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
