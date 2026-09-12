@@ -1,0 +1,1 @@
+ALTER TABLE "payments" ADD COLUMN IF NOT EXISTS "is_historic" BOOLEAN NOT NULL DEFAULT false;

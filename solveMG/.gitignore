@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.cache/
+.env
+.env.local
+*.log
+*-debug.log*
+logs/
+.solve/
+.vite/
+*.tsbuildinfo
+__audit_fin.cjs
+__audit_fin2.cjs
+__counts.cjs
+solve

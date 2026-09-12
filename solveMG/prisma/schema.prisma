@@ -1,0 +1,520 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ClientStatus {
+  ACTIVE
+  INACTIVE
+  DEACTIVATED
+  CLOSED
+}
+enum SubscriptionStatus {
+  ACTIVE
+  FROZEN
+  DEACTIVATED
+  CLOSED
+}
+enum FinancialStatus {
+  PAID
+  PENDING
+  OVERDUE
+  FROZEN
+  RELEASED
+}
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  VOIDED
+  REFUNDED
+}
+enum PaymentMethod {
+  CASH
+  CARD
+  TRANSFER
+  MOBILE_MONEY
+  MULTICAIXA
+  OTHER
+}
+enum FreezeStatus {
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+enum ReleaseStatus {
+  ACTIVE
+  REVOKED
+}
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  VOIDED
+}
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  EXCUSED
+}
+enum IntegrationTarget {
+  CRM
+  OVG
+}
+enum IntegrationStatus {
+  PENDING
+  PROCESSING
+  DELIVERED
+  FAILED
+}
+enum TerminalType {
+  ENTRY
+  EXIT
+}
+enum AccessType {
+  ENTRY
+  EXIT
+}
+enum AccessResult {
+  AUTHORIZED
+  DENIED
+  UNKNOWN_CLIENT
+  DUPLICATE
+  DEVICE_ERROR
+}
+
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  email String @unique
+  passwordHash String @map("password_hash")
+  fullName String @map("full_name")
+  isActive Boolean @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  clientCreated Client[] @relation("ClientCreatedBy")
+  clientUpdated Client[] @relation("ClientUpdatedBy")
+  clientsDeactivated Client[] @relation("ClientDeactivatedBy")
+  roles UserRole[]
+  subscriptionsCreated Subscription[] @relation("SubscriptionCreatedBy")
+  planVersionsChanged SubscriptionPlanVersion[]
+  payments Payment[]
+  freezesCreated Freeze[] @relation("FreezeCreatedBy")
+  freezesEnded Freeze[] @relation("FreezeEndedBy")
+  releases PeriodRelease[]
+  auditEvents AuditEvent[] @relation("AuditActor")
+  unitsCreated GymUnit[] @relation("UnitCreatedBy")
+  @@map("users")
+}
+
+model Role {
+  id String @id @default(uuid()) @db.Uuid
+  name String @unique
+  permissions RolePermission[]
+  users UserRole[]
+  @@map("roles")
+}
+
+model Permission {
+  id String @id @default(uuid()) @db.Uuid
+  name String @unique
+  roles RolePermission[]
+  @@map("permissions")
+}
+
+model UserRole {
+  userId String @map("user_id") @db.Uuid
+  roleId String @map("role_id") @db.Uuid
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId String @map("role_id") @db.Uuid
+  permissionId String @map("permission_id") @db.Uuid
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model Client {
+  id String @id @default(uuid()) @db.Uuid
+  clientNumber String @unique @map("client_number")
+  fullName String @map("full_name")
+  photoUrl String? @map("photo_url")
+  birthDate DateTime? @map("birth_date") @db.Date
+  gender String?
+  taxId String? @map("tax_id")
+  phone String?
+  email String?
+  status ClientStatus @default(ACTIVE)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  deactivatedAt DateTime? @map("deactivated_at")
+  deactivatedById String? @map("deactivated_by") @db.Uuid
+  createdById String? @map("created_by") @db.Uuid
+  updatedById String? @map("updated_by") @db.Uuid
+  unitId String? @map("unit_id") @db.Uuid
+  cardNumber String? @map("card_number")
+  devicePin String? @unique @map("device_pin")
+  accessLimit Int @default(0) @map("access_limit")
+  accessCount Int @default(0) @map("access_count")
+  accessDebt Int @default(0) @map("access_debt")
+  accessTolerance Int @default(2) @map("access_tolerance")
+  accessBlocked Boolean @default(false) @map("access_blocked")
+  online Boolean @default(false)
+  accessCycleStartedAt DateTime? @map("access_cycle_started_at")
+  ovgCustomerNumber String? @unique @map("ovg_customer_number")
+  ovgSynchronized Boolean @default(false) @map("ovg_synchronized")
+  createdBy User? @relation("ClientCreatedBy", fields: [createdById], references: [id])
+  updatedBy User? @relation("ClientUpdatedBy", fields: [updatedById], references: [id])
+  deactivatedBy User? @relation("ClientDeactivatedBy", fields: [deactivatedById], references: [id])
+  subscriptions Subscription[]
+  payments Payment[]
+  billingPeriods BillingPeriod[]
+  invoices Invoice[]
+  attendances Attendance[]
+  freezes Freeze[]
+  releases PeriodRelease[]
+  unit GymUnit? @relation(fields: [unitId], references: [id])
+  accessEvents AccessEvent[]
+  @@index([status])
+  @@index([fullName])
+  @@index([unitId, status])
+  @@index([cardNumber])
+  @@map("clients")
+}
+
+model GymUnit {
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  code String @unique
+  city String @default("Luanda")
+  province String @default("Luanda")
+  country String @default("Angola")
+  timezone String @default("Africa/Luanda")
+  currency String @default("AOA")
+  isActive Boolean @default(true) @map("is_active")
+  createdById String? @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdBy User? @relation("UnitCreatedBy", fields: [createdById], references: [id])
+  clients Client[]
+  terminals AccessTerminal[]
+  @@index([isActive, province])
+  @@map("gym_units")
+}
+
+model AccessTerminal {
+  id String @id @default(uuid()) @db.Uuid
+  unitId String @map("unit_id") @db.Uuid
+  name String
+  serialNumber String @unique @map("serial_number")
+  model String?
+  ipAddress String? @map("ip_address")
+  port Int @default(4370)
+  type TerminalType
+  communicationKey String? @map("communication_key")
+  isActive Boolean @default(true) @map("is_active")
+  isSelected Boolean @default(false) @map("is_selected")
+  lastSeenAt DateTime? @map("last_seen_at")
+  lastSyncAt DateTime? @map("last_sync_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  unit GymUnit @relation(fields: [unitId], references: [id])
+  accessEvents AccessEvent[]
+  @@index([unitId, type, isActive])
+  @@map("access_terminals")
+}
+
+model AccessEvent {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String? @map("client_id") @db.Uuid
+  terminalId String? @map("terminal_id") @db.Uuid
+  externalEventId String? @unique @map("external_event_id")
+  devicePin String? @map("device_pin")
+  occurredAt DateTime @map("occurred_at") @db.Timestamp(6)
+  type AccessType
+  result AccessResult
+  reason String?
+  source String
+  rawPayload Json? @map("raw_payload")
+  createdAt DateTime @default(now()) @map("created_at")
+  client Client? @relation(fields: [clientId], references: [id])
+  terminal AccessTerminal? @relation(fields: [terminalId], references: [id])
+  @@index([clientId, occurredAt(sort: Desc)])
+  @@index([terminalId, occurredAt(sort: Desc)])
+  @@index([occurredAt])
+  @@map("access_events")
+}
+
+model Plan {
+  id String @id @default(uuid()) @db.Uuid
+  name String @unique
+  price Decimal @db.Decimal(12, 2)
+  lessonsPerPeriod Int? @map("lessons_per_period")
+  validityMonths Int @default(1) @map("validity_months")
+  usageRules Json @map("usage_rules")
+  isUnlimited Boolean @default(false) @map("is_unlimited")
+  isActive Boolean @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  versions SubscriptionPlanVersion[]
+  @@index([isActive])
+  @@map("plans")
+}
+
+model Subscription {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  status SubscriptionStatus @default(ACTIVE)
+  startedOn DateTime @map("started_on") @db.Date
+  endedOn DateTime? @map("ended_on") @db.Date
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdById String? @map("created_by") @db.Uuid
+  endedById String? @map("ended_by") @db.Uuid
+  client Client @relation(fields: [clientId], references: [id])
+  createdBy User? @relation("SubscriptionCreatedBy", fields: [createdById], references: [id])
+  planVersions SubscriptionPlanVersion[]
+  periods BillingPeriod[]
+  freezes Freeze[]
+  @@index([clientId, status])
+  @@map("subscriptions")
+}
+
+model SubscriptionPlanVersion {
+  id String @id @default(uuid()) @db.Uuid
+  subscriptionId String @map("subscription_id") @db.Uuid
+  planId String @map("plan_id") @db.Uuid
+  price Decimal @db.Decimal(12, 2)
+  lessonsPerPeriod Int? @map("lessons_per_period")
+  validFrom DateTime @map("valid_from") @db.Date
+  validTo DateTime? @map("valid_to") @db.Date
+  changeReason String @map("change_reason")
+  changedById String? @map("changed_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+  plan Plan @relation(fields: [planId], references: [id])
+  changedBy User? @relation(fields: [changedById], references: [id])
+  periods BillingPeriod[]
+  @@index([subscriptionId, validFrom(sort: Desc)])
+  @@index([planId, validFrom, validTo])
+  @@map("subscription_plan_versions")
+}
+
+model BillingPeriod {
+  id String @id @default(uuid()) @db.Uuid
+  subscriptionId String @map("subscription_id") @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  planVersionId String @map("plan_version_id") @db.Uuid
+  periodStart DateTime @map("period_start") @db.Date
+  periodEnd DateTime @map("period_end") @db.Date
+  calendarYear Int @map("calendar_year")
+  calendarMonth Int @map("calendar_month")
+  sequenceNo Int @map("sequence_no")
+  lessonsEntitled Int? @map("lessons_entitled")
+  amountDue Decimal @map("amount_due") @db.Decimal(12, 2)
+  amountPaid Decimal @default(0) @map("amount_paid") @db.Decimal(12, 2)
+  amountOpen Decimal @map("amount_open") @db.Decimal(12, 2)
+  releasedAmount Decimal @default(0) @map("released_amount") @db.Decimal(12, 2)
+  financialStatus FinancialStatus @default(PENDING) @map("financial_status")
+  calculationOrigin String @map("calculation_origin")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+  client Client @relation(fields: [clientId], references: [id])
+  planVersion SubscriptionPlanVersion @relation(fields: [planVersionId], references: [id])
+  allocations PaymentAllocation[]
+  releases PeriodRelease[]
+  @@unique([subscriptionId, periodStart, periodEnd])
+  @@unique([subscriptionId, calendarYear, calendarMonth, sequenceNo])
+  @@index([clientId, financialStatus, periodStart])
+  @@index([calendarYear, calendarMonth])
+  @@map("billing_periods")
+}
+
+model Payment {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  amount Decimal @db.Decimal(12, 2)
+  paidAt DateTime @map("paid_at")
+  method PaymentMethod
+  reference String?
+  status PaymentStatus @default(CONFIRMED)
+  isHistoric Boolean @default(false) @map("is_historic")
+  idempotencyKey String? @unique @map("idempotency_key")
+  recordedById String? @map("recorded_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  client Client @relation(fields: [clientId], references: [id])
+  recordedBy User? @relation(fields: [recordedById], references: [id])
+  allocations PaymentAllocation[]
+  invoices Invoice[]
+  @@index([clientId, paidAt])
+  @@index([status])
+  @@map("payments")
+}
+
+model PaymentAllocation {
+  id String @id @default(uuid()) @db.Uuid
+  paymentId String @map("payment_id") @db.Uuid
+  billingPeriodId String @map("billing_period_id") @db.Uuid
+  amount Decimal @db.Decimal(12, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+  payment Payment @relation(fields: [paymentId], references: [id])
+  billingPeriod BillingPeriod @relation(fields: [billingPeriodId], references: [id])
+  @@unique([paymentId, billingPeriodId])
+  @@index([billingPeriodId])
+  @@map("payment_allocations")
+}
+
+model Invoice {
+  id String @id @default(uuid()) @db.Uuid
+  invoiceNumber String @unique @map("invoice_number")
+  clientId String @map("client_id") @db.Uuid
+  paymentId String? @map("payment_id") @db.Uuid
+  issuedAt DateTime @map("issued_at")
+  subtotal Decimal @db.Decimal(12, 2)
+  taxAmount Decimal @default(0) @map("tax_amount") @db.Decimal(12, 2)
+  total Decimal @db.Decimal(12, 2)
+  status InvoiceStatus @default(DRAFT)
+  metadata Json
+  createdAt DateTime @default(now()) @map("created_at")
+  client Client @relation(fields: [clientId], references: [id])
+  payment Payment? @relation(fields: [paymentId], references: [id])
+  @@index([clientId, issuedAt])
+  @@map("invoices")
+}
+
+model Class {
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  startsAt DateTime @map("starts_at")
+  endsAt DateTime @map("ends_at")
+  weekday Int
+  capacity Int?
+  isActive Boolean @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  attendances Attendance[]
+  @@index([startsAt, isActive])
+  @@map("classes")
+}
+
+model Attendance {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  classId String @map("class_id") @db.Uuid
+  occurredAt DateTime @map("occurred_at")
+  status AttendanceStatus
+  source String
+  recordedById String? @map("recorded_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  client Client @relation(fields: [clientId], references: [id])
+  class Class @relation(fields: [classId], references: [id])
+  @@unique([clientId, classId, occurredAt])
+  @@index([clientId, occurredAt(sort: Desc)])
+  @@map("attendances")
+}
+
+model Freeze {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  subscriptionId String @map("subscription_id") @db.Uuid
+  startsOn DateTime @map("starts_on") @db.Date
+  endsOn DateTime? @map("ends_on") @db.Date
+  reason String
+  status FreezeStatus @default(ACTIVE)
+  createdById String @map("created_by") @db.Uuid
+  endedById String? @map("ended_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  client Client @relation(fields: [clientId], references: [id])
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+  createdBy User @relation("FreezeCreatedBy", fields: [createdById], references: [id])
+  endedBy User? @relation("FreezeEndedBy", fields: [endedById], references: [id])
+  @@index([subscriptionId, status])
+  @@map("freezes")
+}
+
+model PeriodRelease {
+  id String @id @default(uuid()) @db.Uuid
+  clientId String @map("client_id") @db.Uuid
+  billingPeriodId String @map("billing_period_id") @db.Uuid
+  originalAmount Decimal @map("original_amount") @db.Decimal(12, 2)
+  releasedAmount Decimal @map("released_amount") @db.Decimal(12, 2)
+  reason String
+  status ReleaseStatus @default(ACTIVE)
+  releasedAt DateTime @map("released_at")
+  releasedById String @map("released_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  client Client @relation(fields: [clientId], references: [id])
+  billingPeriod BillingPeriod @relation(fields: [billingPeriodId], references: [id])
+  releasedBy User @relation(fields: [releasedById], references: [id])
+  @@unique([billingPeriodId, status])
+  @@map("period_releases")
+}
+
+model AuditEvent {
+  id String @id @default(uuid()) @db.Uuid
+  actorUserId String? @map("actor_user_id") @db.Uuid
+  action String
+  entityType String @map("entity_type")
+  entityId String @map("entity_id") @db.Uuid
+  beforeData Json? @map("before_data")
+  afterData Json? @map("after_data")
+  ipAddress String? @map("ip_address")
+  userAgent String? @map("user_agent")
+  occurredAt DateTime @default(now()) @map("occurred_at")
+  actor User? @relation("AuditActor", fields: [actorUserId], references: [id])
+  @@index([entityType, entityId, occurredAt(sort: Desc)])
+  @@index([actorUserId, occurredAt(sort: Desc)])
+  @@map("audit_events")
+}
+
+model IntegrationEvent {
+  id String @id @default(uuid()) @db.Uuid
+  eventType String @map("event_type")
+  aggregateType String @map("aggregate_type")
+  aggregateId String @map("aggregate_id") @db.Uuid
+  target IntegrationTarget
+  payload Json
+  idempotencyKey String @unique @map("idempotency_key")
+  status IntegrationStatus @default(PENDING)
+  attempts Int @default(0)
+  nextAttemptAt DateTime? @map("next_attempt_at")
+  lastError String? @map("last_error")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@index([status, nextAttemptAt])
+  @@index([target, aggregateType, aggregateId])
+  @@map("integration_events")
+}
+
+model GlobalParameter {
+  key String @id
+  value Json
+  description String?
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("global_parameters")
+}
+
+model SourceSyncRecord {
+  id String @id @default(uuid()) @db.Uuid
+  sourceSchema String @map("source_schema")
+  sourceTable String @map("source_table")
+  sourceId String @map("source_id")
+  targetType String @map("target_type")
+  targetId String @map("target_id") @db.Uuid
+  sourceUpdatedAt DateTime? @map("source_updated_at")
+  sourceHash String? @map("source_hash")
+  syncedAt DateTime @default(now()) @map("synced_at")
+  @@unique([sourceSchema, sourceTable, sourceId])
+  @@index([sourceTable, sourceUpdatedAt])
+  @@map("source_sync_records")
+}
