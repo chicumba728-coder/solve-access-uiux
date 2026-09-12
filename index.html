@@ -11,9 +11,66 @@
     <link rel="stylesheet" href="./css/layout.css" />
     <link rel="stylesheet" href="./css/components.css" />
     <link rel="stylesheet" href="./css/pages.css" />
+    <link rel="stylesheet" href="./css/login.css" />
   </head>
   <body>
-    <div id="app">
+    <!-- ─── Login Overlay ─────────────────────────────────────────────────── -->
+    <div id="login-overlay" class="login-overlay">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6.5 6.5 11 11"/>
+              <path d="m21 21-1-1a2 2 0 0 0-2.83 0l-2.17 2.17a2 2 0 0 1-2.83 0L10 20"/>
+              <path d="m3 3 1 1a2 2 0 0 0 2.83 0l2.17-2.17a2 2 0 0 1 2.83 0L14 4"/>
+              <path d="m18 22 4-4"/>
+              <path d="m2 6 4-4"/>
+              <path d="m3 10 7-7"/>
+              <path d="m14 21 7-7"/>
+            </svg>
+          </div>
+          <h1 class="login-title">Solve Acess</h1>
+          <p class="login-subtitle">SamoraFit — Gestão de Acessos</p>
+        </div>
+
+        <form id="login-form" class="login-form" novalidate>
+          <div id="login-error" class="login-error"></div>
+
+          <div class="form-field">
+            <label for="login-email">Email</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <input type="email" id="login-email" placeholder="admin@solve.ac" autocomplete="username" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="login-password">Senha</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required />
+            </div>
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="btn-login">
+            <span class="spinner"></span>
+            <span class="btn-login-label">Entrar</span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <div class="login-credential-hint">
+            Use <code>admin@solve.ac</code> — credenciais fornecidas pelo administrador.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="app" style="display: none;">
       <!-- ─── Sidebar ──────────────────────────────────────────────────────── -->
       <aside id="sidebar">
         <!-- Logo -->
@@ -166,6 +223,21 @@
                 </a>
               </li>
               <li>
+                <a href="#/acessos" class="nav-item" data-route="acessos">
+                  <span class="nav-item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="11" cy="11" r="8"/>
+                      <path d="m21 21-4.3-4.3"/>
+                      <path d="M8 11h6"/>
+                      <path d="M11 8v6"/>
+                    </svg>
+                  </span>
+                  <span class="nav-item-label">Histórico de Acessos</span>
+                  <span class="nav-item-indicator"></span>
+                  <div class="nav-item-tooltip">Histórico de Acessos</div>
+                </a>
+              </li>
+              <li>
                 <a href="#/congelamentos" class="nav-item" data-route="congelamentos">
                   <span class="nav-item-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -253,7 +325,7 @@
             <p class="nav-group-label">Sistema</p>
             <ul class="nav-item-list">
               <li>
-                <a href="#/integracoes" class="nav-item" data-route="integracoes">
+                <a href="#/ovg" class="nav-item" data-route="ovg">
                   <span class="nav-item-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M12 22v-5"/>
@@ -262,9 +334,9 @@
                       <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
                     </svg>
                   </span>
-                  <span class="nav-item-label">Integrações</span>
+                  <span class="nav-item-label">OVG</span>
                   <span class="nav-item-indicator"></span>
-                  <div class="nav-item-tooltip">Integrações</div>
+                  <div class="nav-item-tooltip">Integração OVG</div>
                 </a>
               </li>
               <li>
@@ -320,9 +392,9 @@
 
           <!-- Live Terminals Status Pill -->
           <div class="header-terminals-indicator" style="margin-left: auto; margin-right: 8px; display: flex; align-items: center;">
-            <a href="#/terminais" class="badge" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; font-size: 12px; font-weight: 500; border-radius: var(--radius-full);" title="Ver estado dos terminais ZKTeco">
+            <a href="#/terminais" class="badge" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; font-size: 12px; font-weight: 500; border-radius: var(--radius-full);" title="Ver estado dos terminais ZKTeco" id="terminals-pill">
               <span class="live-dot"></span>
-              <span>Terminais: <strong>1 / 2</strong> Online</span>
+              <span id="terminals-pill-text">Terminais: —</span>
             </a>
           </div>
 
@@ -391,7 +463,7 @@
                 Ajuda
               </button>
               <div class="dropdown-divider"></div>
-              <button class="dropdown-item danger" onclick="UI.showToast('Sessão terminada', 'error')">
+              <button class="dropdown-item danger" onclick="Auth.logout()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                 Terminar sessão
               </button>
@@ -450,8 +522,11 @@
     <div id="toast-container"></div>
 
     <!-- ─── Vanilla JavaScript Scripts ────────────────────────────────────── -->
+    <script src="./services/api.js"></script>
+    <script src="./services/auth.js"></script>
     <script src="./js/icons.js"></script>
     <script src="./js/components.js"></script>
+    <script src="./js/excel.js"></script>
     <script src="./js/pages.js"></script>
     <script src="./js/navigation.js"></script>
     <script src="./js/main.js"></script>

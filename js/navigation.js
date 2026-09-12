@@ -6,6 +6,13 @@
 const Router = (() => {
   const routes = [
     {
+      path: /^#\/login$/,
+      name: 'login',
+      title: 'Iniciar Sessão',
+      breadcrumbs: [{ label: 'Login' }],
+      render: () => ''
+    },
+    {
       path: /^#\/?$/,
       name: 'dashboard',
       title: 'Dashboard',
@@ -76,6 +83,13 @@ const Router = (() => {
       render: () => Pages.renderTerminals()
     },
     {
+      path: /^#\/acessos$/,
+      name: 'acessos',
+      title: 'Histórico de Acessos',
+      breadcrumbs: [{ label: 'Dashboard', href: '#/' }, { label: 'Operações' }, { label: 'Histórico de Acessos' }],
+      render: () => Pages.renderAccessEvents()
+    },
+    {
       path: /^#\/congelamentos$/,
       name: 'congelamentos',
       title: 'Congelamentos',
@@ -111,10 +125,17 @@ const Router = (() => {
       render: () => Pages.renderAudit()
     },
     {
+      path: /^#\/ovg$/,
+      name: 'ovg',
+      title: 'OVG',
+      breadcrumbs: [{ label: 'Dashboard', href: '#/' }, { label: 'Sistema' }, { label: 'OVG' }],
+      render: () => Pages.renderIntegrations()
+    },
+    {
       path: /^#\/integracoes$/,
-      name: 'integracoes',
-      title: 'Integrações',
-      breadcrumbs: [{ label: 'Dashboard', href: '#/' }, { label: 'Integrações' }],
+      name: 'ovg',
+      title: 'OVG',
+      breadcrumbs: [{ label: 'Dashboard', href: '#/' }, { label: 'Sistema' }, { label: 'OVG' }],
       render: () => Pages.renderIntegrations()
     },
     {
@@ -152,6 +173,11 @@ const Router = (() => {
       matched = routes[0];
     }
 
+    if (matched.name !== 'login' && typeof Auth !== 'undefined' && !Auth.isAuthenticated()) {
+      window.location.hash = '#/login';
+      return;
+    }
+
     currentRouteName = matched.name;
 
     // Update Header
@@ -160,18 +186,60 @@ const Router = (() => {
     // Update Sidebar active state
     updateSidebarNav(matched.name);
 
-    // Render Content
+    // Render Content (support both sync and async renderers)
     const pageContent = document.getElementById('page-content');
     if (pageContent) {
-      pageContent.innerHTML = matched.render(matchArgs);
-      pageContent.scrollTop = 0;
+      pageContent.innerHTML = getLoadingSkeleton();
+      const result = matched.render(matchArgs);
+
+      if (result && typeof result.then === 'function') {
+        result
+          .then((html) => {
+            if (pageContent && currentRouteName === matched.name) {
+              pageContent.innerHTML = html;
+              pageContent.scrollTop = 0;
+            }
+            postRenderSetup(matched.name);
+          })
+          .catch((error) => {
+            if (pageContent && currentRouteName === matched.name) {
+              pageContent.innerHTML = getErrorState(error);
+            }
+            postRenderSetup(matched.name);
+          });
+      } else {
+        pageContent.innerHTML = result || '';
+        pageContent.scrollTop = 0;
+        postRenderSetup(matched.name);
+      }
+    } else {
+      postRenderSetup(matched.name);
     }
 
     // Close mobile drawer on route change
     UI.closeMobileSidebar();
+  }
 
-    // Re-bind interactive components in new page DOM
-    postRenderSetup(matched.name);
+  function getLoadingSkeleton() {
+    return `
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 50vh; flex-direction: column; gap: 12px;">
+        <div style="width: 36px; height: 36px; border: 3px solid var(--primary-muted); border-top-color: var(--primary); border-radius: 50%; animation: spinner-rotate 0.7s linear infinite;"></div>
+        <p style="font-size: 13px; color: var(--muted-foreground);">A carregar dados...</p>
+      </div>
+    `;
+  }
+
+  function getErrorState(error) {
+    return `
+      <div class="card" style="max-width: 480px; margin: 60px auto; text-align: center; padding: 32px;">
+        <div style="width: 48px; height: 48px; margin: 0 auto 16px; border-radius: var(--radius-lg); background: var(--danger-bg); color: var(--danger); display: flex; align-items: center; justify-content: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--foreground);">Erro ao carregar dados</h3>
+        <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 16px;">${(error.message || 'Ocorreu um erro inesperado.').replace(/</g, '&lt;')}</p>
+        <button class="btn btn-primary" onclick="location.reload()">Tentar de novo</button>
+      </div>
+    `;
   }
 
   function updateHeader(title, breadcrumbs) {
@@ -212,32 +280,54 @@ const Router = (() => {
   }
 
   function postRenderSetup(name) {
-    // Bind toggle switches in newly rendered DOM
     UI.bindToggles('#page-content');
 
-    // Bind tabs in profile
     if (name === 'clientes') {
       const profileTabs = document.getElementById('profile-tabs');
-      if (profileTabs) {
-        profileTabs.querySelectorAll('.tab-btn').forEach(btn => {
+      const profileTabContent = document.getElementById('profile-tab-content');
+      if (profileTabs && profileTabContent) {
+        const clientId = (window.location.hash.match(/#\/clientes\/([^/]+)/) || [])[1];
+        profileTabs.querySelectorAll('.tab-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
-            profileTabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            profileTabs.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
             btn.classList.add('active');
             const tabId = btn.getAttribute('data-tab');
-            const content = document.getElementById('profile-tab-content');
-            if (content) {
-              content.innerHTML = `
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">${btn.textContent.trim()}</h3>
-                  </div>
-                  <p style="font-size: 13px; color: var(--muted-foreground);">Dados da aba "${btn.textContent.trim()}" carregados.</p>
-                </div>
-              `;
+            profileTabContent.innerHTML = `
+              <div style="display: flex; align-items: center; justify-content: center; padding: 24px;">
+                <div style="width: 28px; height: 28px; border: 3px solid var(--primary-muted); border-top-color: var(--primary); border-radius: 50%; animation: spinner-rotate 0.7s linear infinite;"></div>
+              </div>
+            `;
+            if (typeof Pages !== 'undefined' && Pages.renderProfileTabContent) {
+              Pages.renderProfileTabContent(tabId, clientId).then((html) => {
+                if (profileTabContent) profileTabContent.innerHTML = html;
+              }).catch(() => {
+                if (profileTabContent) profileTabContent.innerHTML = '<div class="card"><p style="font-size:13px;color:var(--muted-foreground);padding:16px;">Erro ao carregar conteúdo da aba.</p></div>';
+              });
             }
           });
         });
       }
+
+      if (name === 'clientes' && typeof Pages !== 'undefined' && Pages.bindClientsPage) {
+        Pages.bindClientsPage();
+      }
+    }
+
+    if (name === 'dashboard' && typeof Pages !== 'undefined' && Pages.bindDashboardPeriod) {
+      Pages.bindDashboardPeriod();
+      if (Pages.bindDashboardAutoRefresh) Pages.bindDashboardAutoRefresh();
+    }
+
+    if (name === 'relatorios' && typeof Pages !== 'undefined' && Pages.bindReportsTabs) {
+      Pages.bindReportsTabs();
+    }
+
+    if (name === 'presencas' && typeof Pages !== 'undefined' && Pages.bindAttendancePage) {
+      Pages.bindAttendancePage();
+    }
+
+    if (name === 'pagamentos' && typeof Pages !== 'undefined' && Pages.bindPaymentsPage) {
+      Pages.bindPaymentsPage();
     }
   }
 

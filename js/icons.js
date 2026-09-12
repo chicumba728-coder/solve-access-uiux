@@ -40,6 +40,10 @@ const Icons = (() => {
       <rect width="20" height="14" x="2" y="5" rx="2"/>
       <line x1="2" x2="22" y1="10" y2="10"/>
     `,
+    'lock': `
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    `,
     'receipt': `
       <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
       <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
@@ -79,6 +83,16 @@ const Icons = (() => {
     'check-circle': `
       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
       <polyline points="22 4 12 14.01 9 11.01"/>
+    `,
+    'info': `
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 16v-4"/>
+      <path d="M12 8h.01"/>
+    `,
+    'monitor': `
+      <rect width="20" height="14" x="2" y="3" rx="2"/>
+      <line x1="8" x2="16" y1="21" y2="21"/>
+      <line x1="12" x2="12" y1="17" y2="21"/>
     `,
     'x-circle': `
       <circle cx="12" cy="12" r="10"/>

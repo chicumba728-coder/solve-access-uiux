@@ -27,11 +27,24 @@ export default defineConfig(({ mode }) => {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
+      allowedHosts: ['.ngrok-free.dev'],
       watch: { ignored: ['**/.figma/**'] },
+      proxy: {
+        '/api': {
+          target: process.env.SOLVE_API_ORIGIN || 'http://localhost:3000',
+          changeOrigin: true,
+        },
+      },
     },
     preview: {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
+      proxy: {
+        '/api': {
+          target: process.env.SOLVE_API_ORIGIN || 'http://localhost:3000',
+          changeOrigin: true,
+        },
+      },
     },
   }
 })
